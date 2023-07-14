@@ -1,0 +1,176 @@
+Que:1 convert 1d array to 2d array
+class Solution {
+    public int[][] construct2DArray(int[] original, int m, int n) {
+     int s = original.length;
+    if(s != n*m) return new int[][]{};
+    int ans[][] = new int[m][n];
+     int x = 0;
+     for(int i = 0; i<m; i++){
+         for(int j = 0; j<n; j++){
+      ans[i][j] = original[x++];
+         }
+     }   
+     return ans;
+    }
+}
+
+
+//Que 2 Arranging coins
+class Solution {
+    public int arrangeCoins(int n) {
+    return (int)(Math.sqrt(2*(long)n+0.25)-0.5);
+    }
+}
+
+//Que 3 square of sorted array
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int n = nums.length;
+      int ans[] = new int[n];
+       for(int i = 0; i<n; i++) {
+           ans[i] = nums[i]*nums[i];
+       }
+           Arrays.sort(ans);
+       
+       return ans;
+    }
+}
+
+Que 4
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+    HashSet<Integer> s1 = new HashSet<>();
+     HashSet<Integer> s2 = new HashSet<>();
+     for(int num : nums1){
+         s1.add(num);
+     }  
+     for(int num : nums2){
+         s2.add(num);
+     }  
+     ArrayList<Integer> diff1 = new ArrayList<>();
+      ArrayList<Integer> diff2 = new ArrayList<>();
+      for(int num : s1){
+          if(!s2.contains(num)){
+              diff1.add(num);
+          }
+      }
+      for(int num : s2){
+          if(!s1.contains(num)){
+              diff2.add(num);
+          }
+      }
+      List<List<Integer>> ans = new ArrayList<>();
+      ans.add(diff1);
+      ans.add(diff2);
+      return ans;
+    }
+}
+
+Que5
+class Solution {
+    public int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
+   
+     int count = 0;
+    
+     for(int i = 0; i<arr1.length; i++){
+         for(int j = 0; j<arr2.length; j++){
+         if(Math.abs(arr1[i] - arr2[j]) <= d){
+            
+             count++;
+             break;
+       
+         }
+         }
+        
+         
+     }
+     return  arr1.length-count;   
+    }
+}
+
+Que 6
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        ArrayList<Integer> List = new ArrayList<>();
+        Arrays.sort(nums);
+        for(int i = 0; i<nums.length-1; i++){
+            if(nums[i] == nums[i+1]){
+                List.add(nums[i]);
+            }
+        }
+        return List;
+    }
+}
+
+Que7
+int n = nums.length;
+    int left = 0; 
+    int right = n-1;
+    int ans = -1;
+    while(left<=right){
+        int mid = left + (right - left)/2;
+        if(nums[mid] > nums[n-1]){
+            left = mid+1;
+        }
+        else if(nums[mid]<= nums[n-1]){
+            ans = nums[mid];
+            right = mid-1;
+        }
+    } 
+    return ans;
+    }
+}
+
+Que 8
+class Solution {
+        public static void add(HashMap<Integer,Integer> map, int key){
+    if(map.containsKey(key)){
+        map.put(key,map.get(key)+1);
+    }
+    else{
+        map.put(key,1);
+    }
+}
+public static void remove(HashMap<Integer,Integer> map, int key){
+    if(map.get(key)==1){
+        map.remove(key);
+    }
+        else{
+            map.put(key,map.get(key)-1);
+        }
+
+  }
+    public int[] findOriginalArray(int[] changed) {
+      
+        int n  = changed.length;
+        if(n%2 == 1) return new int[0];
+        Arrays.sort(changed);
+
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int val : changed) add(map,val);
+        int ans[] = new int[n/2];
+        int j = 0;
+        for(int val : changed){
+            if(val == 0){
+                if(map.containsKey(0) && map.get(0)>=2){
+                    ans[j] = 0;
+                    j++;
+                    remove(map,0);
+                    remove(map,0);
+                }
+            }
+            else{
+                  if(map.containsKey(val) && map.containsKey(val*2)){
+                    ans[j] = val;
+                    j++;
+                    remove(map,val);
+                    remove(map,val*2);
+            }
+        }
+        }
+    
+    if(j<n/2) return new int[0];
+    return ans;
+    }
+}
+
